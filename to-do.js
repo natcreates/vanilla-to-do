@@ -77,7 +77,7 @@ function removeToDo(elem) {
 }
 
 function deleteTasks() {
-	var ul = document.getElementById('ul');
+	var ul = document.getElementById('list');
 	if (ul !== null) {
 		while (ul.firstChild) {
 		ul.removeChild(ul.firstChild);
