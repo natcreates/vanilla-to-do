@@ -17,7 +17,7 @@ function getToDos() {
 function writeTasks() {
 	deleteTasks();
 	var toDos = getToDos();
-	for (var i=0; i < toDos.length-1; i++) {
+	for (var i=0; i < toDos.length; i++) {
 		writeTask(toDos[i]);
 	}
 }
@@ -71,7 +71,7 @@ function addTask() {
 function removeToDo(elem) {
 	var toDos = getToDos();
 	var removedTask = elem.currentTarget.parentNode;
-	toDos.splice(removedTask.id, 1);
+	toDos.splice(removedTask.id - 1, 1);
 	localStorage.setItem("toDos", JSON.stringify(toDos));
 	writeTasks();
 }
