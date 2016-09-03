@@ -62,16 +62,11 @@ function addTask() {
 	}
 }
 
-// function deleteTask(elem) {
-// 	var removedTask = elem.currentTarget.parentNode;
-// 	var ul = removedTask.parentNode;
-// 	ul.removeChild(removedTask);
-// }
-
 function removeToDo(elem) {
 	var toDos = getToDos();
 	var removedTask = elem.currentTarget.parentNode;
-	toDos.splice(removedTask.id - 1, 1);
+	// get the task id, convert to number
+	toDos.splice(+removedTask.id.charAt(4) - 1, 1);
 	localStorage.setItem("toDos", JSON.stringify(toDos));
 	writeTasks();
 }
