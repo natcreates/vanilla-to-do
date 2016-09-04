@@ -5,8 +5,22 @@ body {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	padding: 20px;
-	background: #3399cc;
+	padding:  0 20px 15px;
+	background: #f3f3f3;
+}
+
+form {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 15px 0;
+}
+
+h2 {
+	text-align: center;
+	margin: 0 0 5px;
+	color: #333;
 }
 
 button {
@@ -52,6 +66,11 @@ button.remove-button:hover i, button.remove-button:focus i {
 	color: black;
 }
 
+ul {
+	padding-left: 0;
+	list-style: none;
+}
+
 li {
 	display: flex;
 	align-items: center;
@@ -67,14 +86,42 @@ li {
 	margin: 5px;
 }
 
-.task-container {
+.container {
 	display: flex;
+	flex-wrap: wrap;
+}
+
+.list-wrapper {
+	min-width: 	400px;
+	min-height: 200px;
+	max-height: 600px;
+	flex: 1 0 auto;
+	padding: 20px 30px;
+	position: relative;
+}
+
+h2.vertical, h2.vertical--single {
+	position: absolute;
+	top: 50%;
+	left: -50px;
+	transform: translate(-50%, -50%);
+	transform: rotate(-90deg);
+}
+
+h2.vertical--single {
+	left: -70px;
+}
+
+.list-wrapper:first-child, .list-wrapper:nth-child(3) {
+	border-right: 2px solid #696969;
+}
+
+.list-wrapper:nth-child(3), .list-wrapper:last-child {
+	border-top: 2px solid #696969;
 }
 
 .task-list {
-	list-style: none;
 	background: white;
-	width: 500px;
 	flex: 1 1 auto;
 	padding-left: 0;
 }

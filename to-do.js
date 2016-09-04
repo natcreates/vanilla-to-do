@@ -66,7 +66,12 @@ function removeToDo(elem) {
 	var toDos = getToDos();
 	var removedTask = elem.currentTarget.parentNode;
 	// get the task id, convert to number
-	toDos.splice(+removedTask.id.charAt(4) - 1, 1);
+	if (toDos.length > 1) {
+		toDos.splice(+removedTask.id.charAt(4) - 1, 1);
+	} else {
+		toDos = [];
+	}
+	
 	localStorage.setItem("toDos", JSON.stringify(toDos));
 	writeTasks();
 }

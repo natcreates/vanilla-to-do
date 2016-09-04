@@ -8,15 +8,34 @@
     <script type="text/javascript" src="to-do.js"></script>
 </head>
 <body>
-<form action="#" class="new-task" id="form">
-	<input type="text" class="new-task-input" name="" id="task-input">
-	<button onclick="addTask()">Add</button>
-</form>
-<div class="list-wrapper">
-	<div class="task-container">
-		<ul class="task-list" id="list">
-		</ul>
- 	</div>
- </div>
+	<form action="#" class="new-task" id="form">
+		<input type="text" class="new-task-input" name="" id="task-input">
+		<button onclick="addTask()">Add</button>
+	</form>
+	<div class="container">
+		<div class="list-wrapper">
+			<h2>Urgent</h2>
+			<h2 class="vertical">Important</h2>
+			<ul class="task-list" id="list">
+			</ul>
+		</div>
+		<div class="list-wrapper">
+			<h2>Not urgent</h2>
+			<ul class="test" id="">
+				<li>task-list</li>
+			</ul>
+		</div>
+		<div class="list-wrapper">
+			<h2 class="vertical--single">Not important</h2>
+			<ul class="test" id="">
+				<li>task-list</li>
+			</ul>
+		</div>
+		<div class="list-wrapper">
+			<ul class="test" id="">
+				<li>task-list</li>
+			</ul>
+		</div>
+	 </div>
 </body>
 </html>
