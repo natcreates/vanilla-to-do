@@ -68,6 +68,7 @@ function addTask() {
 	
 	if (newToDo !== "") {
 		var toDos = getToDos();
+		console.log(toDos);
 		var toDo = { "checked": false };
 		toDo.info = newToDo;
 		toDo.id = toDos.length + 1;
@@ -87,17 +88,25 @@ function removeToDo(elem) {
 	var removedTask = elem.currentTarget.parentNode;
 	// get the task id, convert to number
 	var removedTaskId = +removedTask.id.charAt(4);
-	// search the array for the id to get the index
-	var toDoIndex = toDos.map(function(e) {
-		return e.id;
-	}).indexOf(removedTaskId);
+	// search each sub-array for the id to get the index
+	var i=0; 
+	do {
+		var toDoIndex = toDos[i].map(function(e) {
+			return e.id;
+		}).indexOf(removedTaskId);
+		i++;
+	// keep searching until the map method returns other than -1
+	// don't search beyond the number of sub-arrays
+	} while (toDoIndex === -1 && i < 4);
 
-	if (toDoIndex > -1 && toDos.length > 1) {
-		toDos.splice(toDoIndex, 1);
+	// account for the first do-while execution incrementing i to 1
+	if (toDos[i - 1].length > 1) {
+		toDos[i - 1].splice(toDoIndex, 1);
 	} else {
-		toDos = [];
+		toDos[i - 1] = [];
 	}
 	
+	console.log(toDos[i]);
 	localStorage.setItem("toDos", JSON.stringify(toDos));
 	writeTasks();
 }
@@ -105,6 +114,8 @@ function removeToDo(elem) {
 function dragStart(event) {
 	console.log('dragStart')
 	event.dataTransfer.effectAllowed = 'move';
+	removeToDo(event.currentTarget);
+	var toDos = getToDos();
 	event.dataTransfer.setData('text/html', event.currentTarget.innerHTML);
 	return true;
 }

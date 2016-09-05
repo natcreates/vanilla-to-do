@@ -69,6 +69,9 @@ button.remove-button:hover i, button.remove-button:focus i {
 ul {
 	padding-left: 0;
 	list-style: none;
+	min-height: 20px;
+	flex: 1 1 auto;
+	padding-left: 0;
 }
 
 li {
@@ -77,6 +80,7 @@ li {
 	border-bottom: 1px solid #ccc;
 	padding: 10px;
 	justify-content: space-between;
+	background: white;
 }
 
 .new-task-input {
@@ -119,13 +123,6 @@ h2.vertical--single {
 .list-wrapper:nth-child(3), .list-wrapper:last-child {
 	border-top: 2px solid #696969;
 }
-
-.task-list {
-	background: white;
-	flex: 1 1 auto;
-	padding-left: 0;
-}
-
 
 .task-done {
 	text-decoration: line-through;
