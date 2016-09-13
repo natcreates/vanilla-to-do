@@ -93,10 +93,12 @@ li {
 .container {
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .list-wrapper {
 	min-width: 	400px;
+	max-width: 50%;
 	min-height: 200px;
 	max-height: 600px;
 	flex: 1 0 auto;
