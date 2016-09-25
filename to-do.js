@@ -49,7 +49,7 @@ function writeTask(taskItem, listCategory) {
 		}
 
 	});
-	listItem.lastChild.addEventListener("click", removeToDo);
+	listItem.lastChild.addEventListener("click", function(elem){removeToDo(elem.currentTarget.parentNode)});
 	list.appendChild(listItem);
 }
 
@@ -94,9 +94,8 @@ function findIndex(array, value) {
 	}
 }
 
-function removeToDo(elem) {
+function removeToDo(removedTask) {
 	var toDos = getToDos();
-	var removedTask = elem.currentTarget.parentNode;
 	console.log(removedTask);
 	// get the task id, convert to number
 	var removedTaskId = +removedTask.id;
@@ -144,21 +143,42 @@ function removeToDo(elem) {
 function dragStart(event) {
 	console.log('dragStart')
 	event.dataTransfer.effectAllowed = 'move';
-	console.log(event.currentTarget);
-	removeToDo(event.currentTarget);
 	var toDos = getToDos();
-	var draggedToDo = toDos.findIndex(event.currentTarget.id);
-	event.dataTransfer.setData("task",JSON.stringify(draggedToDo));
-	return true;
+	var movedTask = event.currentTarget;
+	var movedTaskId = +movedTask.id;
+	// search each sub-array for the id to get the index
+
+	for (var s = 0; s < toDos.length; s++) {
+		var toDoIndex = findIndex(toDos[s], movedTaskId);
+		if (toDoIndex !== undefined) {
+			break;
+		} 
+	}
+
+	event.dataTransfer.setData("task",JSON.stringify(toDos[s][toDoIndex]));
+	event.dataTransfer.setData("oldCategory", s);
+	event.dataTransfer.setData("oldIndex", toDoIndex);
 }
 
 function dragDrop(event) {
 	console.log('dragDrop')
-	var info = event.dataTransfer.getData('text/html');
-	var listItem = document.createElement('li');
-	listItem.innerHTML = info;
-	console.log(event.currentTarget);
-	event.currentTarget.appendChild(listItem);
+	var droppedToDo = JSON.parse(event.dataTransfer.getData('task'));
+	var oldCat = event.dataTransfer.getData('oldCategory');
+	var oldIndex = event.dataTransfer.getData('oldIndex');
+	var toDos = getToDos();
+
+	if (toDos[oldCat].length  >= 1) {
+		toDos[oldCat].splice(oldIndex, 1);
+	} else {
+		toDos[oldCat] = [];
+	}
+
+	var droppedIndex = categoryList.indexOf(event.target.id);
+	console.log(droppedIndex);
+	toDos[droppedIndex].push(droppedToDo);
+	console.log('dropped todo', droppedToDo);
+	localStorage.setItem("toDos", JSON.stringify(toDos));
+	writeTasks();
 
   	event.stopPropagation();
   	return false;
