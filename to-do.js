@@ -32,7 +32,7 @@ function writeTask(taskItem, listCategory) {
 	var listItem = document.createElement('li');
 	listItem.id = taskItem.id;
 	console.log(listItem.id);
-	listItem.innerHTML = '<label for="' + taskItem.id +'"><input type="checkbox" name="' + listItem.id + '">' + taskItem.info + '</label><button class="remove-button"><i class="fa fa-remove"></i></button>';
+	listItem.innerHTML = '<label for="' + taskItem.id +'"><input type="checkbox" name="' + listItem.id + '"><div class="custom-checkbox"></div>' + taskItem.info + '</label><button class="remove-button"><i class="fa fa-remove"></i></button>';
 	//listItem.appendChild(document.createTextNode(newItem));
 	listItem.draggable = "true";
 	// listItem.addEventListener("click", dragStart(event), false);
@@ -193,4 +193,14 @@ function dragEnter(ev) {
 function dragOver(ev) {
 	console.log('dragOver')
     ev.preventDefault();
+}
+
+// remove all
+function deleteAll(ev) {
+	deleteTasks();
+	var toDos = getToDos();
+	toDos = [[],[],[],[]];
+	localStorage.setItem("toDos", JSON.stringify(toDos));
+	var form = document.getElementById('form');
+	form.reset();
 }

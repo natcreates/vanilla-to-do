@@ -10,7 +10,7 @@
 <body>
 	<form action="#" class="new-task" id="form">
 		<input type="text" class="new-task-input" name="" id="task-input">
-		<button onclick="addTask()">Add</button>
+		<button onclick="addTask()" class="button--add">Add Task</button>
 	</form>
 	<div class="container">
 		<div class="list-wrapper">
@@ -34,5 +34,6 @@
 			</ul>
 		</div>
 	 </div>
+	 <button class="remove-button delete-all-button" title="delete all" onclick="return deleteAll()"><i class="fa fa-2x fa-trash"></i></button>
 </body>
 </html>
