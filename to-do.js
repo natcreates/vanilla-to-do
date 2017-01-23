@@ -173,9 +173,15 @@ function dragDrop(event) {
 		toDos[oldCat] = [];
 	}
 
-	var droppedIndex = categoryList.indexOf(event.target.id);
-	console.log(droppedIndex);
-	toDos[droppedIndex].push(droppedToDo);
+	var droppedIndex = categoryList.indexOf(event.currentTarget.id);
+
+	// find the index of the list item we're dropping onto
+	var target = toDos[droppedIndex].findIndex(function(element) {
+		return element.id == event.target.parentNode.id;
+	});
+
+	// insert the dropped item afterwards
+	toDos[droppedIndex].splice(target + 1, 0, droppedToDo);
 	console.log('dropped todo', droppedToDo);
 	localStorage.setItem("toDos", JSON.stringify(toDos));
 	writeTasks();

@@ -69,16 +69,28 @@ button.remove-button:hover, button.remove-button:focus {
 	outline: none;
 }
 
-button.remove-button:hover i, button.remove-button:focus i {
+button:hover i, button:focus i {
 	color: #ff3b3f;
 }
 
 button.delete-all-button {
-	position: fixed;
-	right: 10px;
-	bottom: 10px;
-	width: 50px;
+	align-self: flex-end;
+	width: 100px;
 	height: 50px;
+	background: transparent;
+	color: #696969;
+	display: flex;
+	width: 100px;
+	align-items: center;
+}
+
+button.delete-all-button:hover {
+	color: #ff3b3f;
+}
+
+.delete-all-button-icon {
+	margin-right: 10px;
+	line-height: 0.5;
 }
 
 ul {
@@ -170,15 +182,17 @@ input:checked + .custom-checkbox:after {
 }
 
 h2.vertical, h2.vertical--single {
+	writing-mode: vertical-rl;
+	transform: rotate(180deg);
 	position: absolute;
-	top: 50%;
-	left: -50px;
-	transform: translate(-50%, -50%);
-	transform: rotate(-90deg);
+	top: 30%;
+	left: 0;
+	//transform: translate(-50%, -50%);
+	//transform: rotate(-90deg);
 }
 
 h2.vertical--single {
-	left: -70px;
+	//left: -70px;
 }
 
 .list-wrapper:first-child, .list-wrapper:nth-child(3) {
