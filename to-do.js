@@ -20,6 +20,7 @@ function getToDos() {
 function writeTasks() {
 	deleteTasks();
 	var toDoLists = getToDos();
+	// print the tasks for each category
 	for (var i=0; i < toDoLists.length; i++) {
 		for (var j=0; j < toDoLists[i].length; j++) {
 			writeTask(toDoLists[i][j], categoryList[i]);
@@ -31,13 +32,14 @@ function writeTask(taskItem, listCategory) {
 	var list = document.getElementById(listCategory);
 	var listItem = document.createElement('li');
 	listItem.id = taskItem.id;
-	console.log(listItem.id);
+
 	listItem.innerHTML = '<label for="' + taskItem.id +'"><input type="checkbox" name="' + listItem.id + '"><div class="custom-checkbox"></div>' + taskItem.info + '</label><button class="remove-button"><i class="fa fa-remove"></i></button>';
-	//listItem.appendChild(document.createTextNode(newItem));
+	
+	// make each list item draggable
 	listItem.draggable = "true";
-	// listItem.addEventListener("click", dragStart(event), false);
 	listItem.setAttribute("ondragstart", "return dragStart(event)");
 
+	// change done state when clicked
 	listItem.firstChild.addEventListener("click", function(e) {
 
 		if (e.currentTarget.classList.contains("task-done")) {
@@ -49,8 +51,14 @@ function writeTask(taskItem, listCategory) {
 		}
 
 	});
-	listItem.lastChild.addEventListener("click", function(elem){removeToDo(elem.currentTarget.parentNode)});
+
+
+	// add task to the end of the category list
 	list.appendChild(listItem);
+
+	// hook up the remove task button
+	listItem.lastChild.addEventListener("click", function(elem){removeToDo(elem.currentTarget.parentNode)});
+
 }
 
 function deleteTasks() {
@@ -70,14 +78,20 @@ function addTask() {
 	if (newToDo !== "") {
 		var toDos = getToDos();
 		toDoIds++;
-		console.log(toDos);
 		var toDo = { "checked": false };
 		toDo.info = newToDo;
 		toDo.id = toDoIds;
+
+		// always push new tasks to category 3
 		toDos[3].push(toDo);
+
+		// store new task list
 		localStorage.setItem("toDos", JSON.stringify(toDos));
+		
+		// redraw tasks
 		writeTasks();
 
+		// clear the input field
 		var form = document.getElementById('form');
 		form.reset();
 	} else {
@@ -96,20 +110,19 @@ function findIndex(array, value) {
 
 function removeToDo(removedTask) {
 	var toDos = getToDos();
-	console.log(removedTask);
+
 	// get the task id, convert to number
 	var removedTaskId = +removedTask.id;
-	console.log(removedTaskId);
+	
 	// search each sub-array for the id to get the index
-
 	for (var s = 0; s < toDos.length; s++) {
 		var toDoIndex = findIndex(toDos[s], removedTaskId);
+
+		// stop when we get the index
 		if (toDoIndex !== undefined) {
 			break;
 		} 
 	}
-	console.log(toDoIndex);
-	console.log(s);
 
 	if (toDos[s].length  >= 1) {
 		toDos[s].splice(toDoIndex, 1);
@@ -117,25 +130,7 @@ function removeToDo(removedTask) {
 		toDos[s] = [];
 	}
 
-	//var count = 0; 
-	//do {
-	//	console.log(toDos[count]);
-	//	var toDoIndex = toDos.findIndex(function(e) {
-	//		e.id === removedTaskId;
-	//	});
-	//	count++;
-	// keep searching until the map method returns other than -1
-	// don't search beyond the number of sub-arrays
-	//} while (toDoIndex === -1 && count < 4);
-	console.log(toDoIndex);
-	// account for the first do-while execution incrementing i to 1
-	//if (toDos[count - 1].length >= 1) {
-	//	toDos[count - 1].splice(toDoIndex, 1);
-	//} else {
-	//	toDos[count - 1] = [];
-	//}
-	//count = 0;
-	console.log(toDos);
+	// store and redraw the changed tasklist
 	localStorage.setItem("toDos", JSON.stringify(toDos));
 	writeTasks();
 }
@@ -145,9 +140,10 @@ function dragStart(event) {
 	event.dataTransfer.effectAllowed = 'move';
 	var toDos = getToDos();
 	var movedTask = event.currentTarget;
+	// convert to number
 	var movedTaskId = +movedTask.id;
-	// search each sub-array for the id to get the index
 
+	// search each sub-array for the id to get the index
 	for (var s = 0; s < toDos.length; s++) {
 		var toDoIndex = findIndex(toDos[s], movedTaskId);
 		if (toDoIndex !== undefined) {
@@ -155,34 +151,47 @@ function dragStart(event) {
 		} 
 	}
 
+	// store the task object, plus source index and category
 	event.dataTransfer.setData("task",JSON.stringify(toDos[s][toDoIndex]));
 	event.dataTransfer.setData("oldCategory", s);
 	event.dataTransfer.setData("oldIndex", toDoIndex);
 }
 
 function dragDrop(event) {
-	console.log('dragDrop')
 	var droppedToDo = JSON.parse(event.dataTransfer.getData('task'));
-	var oldCat = event.dataTransfer.getData('oldCategory');
+	var oldCategory = event.dataTransfer.getData('oldCategory');
 	var oldIndex = event.dataTransfer.getData('oldIndex');
 	var toDos = getToDos();
 
-	if (toDos[oldCat].length  >= 1) {
-		toDos[oldCat].splice(oldIndex, 1);
+	// remove task object from old position
+	if (toDos[oldCategory].length  >= 1) {
+		toDos[oldCategory].splice(oldIndex, 1);
 	} else {
-		toDos[oldCat] = [];
+		toDos[oldCategory] = [];
 	}
 
 	var droppedIndex = categoryList.indexOf(event.currentTarget.id);
 
 	// find the index of the list item we're dropping onto
 	var target = toDos[droppedIndex].findIndex(function(element) {
-		return element.id == event.target.parentNode.id;
+		console.log('element', element.id);
+		console.log('parent', event.target.parentNode.id);
+		var test;
+
+		// check that we're getting a task id, not a category id
+		if(event.target.parentNode.id.length < 2) {
+			test = event.target.parentNode.id;
+		} else {
+			test = event.target.id;
+		}
+		return element.id == test;
 	});
 
+	console.log(target);
 	// insert the dropped item afterwards
 	toDos[droppedIndex].splice(target + 1, 0, droppedToDo);
 	console.log('dropped todo', droppedToDo);
+	// store changed tasklist and re-draw
 	localStorage.setItem("toDos", JSON.stringify(toDos));
 	writeTasks();
 
@@ -192,18 +201,18 @@ function dragDrop(event) {
 
 // prevent default browser behaviour
 function dragEnter(ev) {
-	console.log('dragEnter')
    ev.preventDefault();
    return true;
 }
 function dragOver(ev) {
-	console.log('dragOver')
     ev.preventDefault();
 }
 
 // remove all
 function deleteAll(ev) {
+	// delete from the screen
 	deleteTasks();
+	// delete from storage
 	var toDos = getToDos();
 	toDos = [[],[],[],[]];
 	localStorage.setItem("toDos", JSON.stringify(toDos));

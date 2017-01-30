@@ -14,22 +14,26 @@
 	</form>
 	<div class="container">
 		<div class="list-wrapper">
-			<h2>Urgent</h2>
-			<h2 class="vertical">Important</h2>
+			<h2 class="grid-view">Urgent</h2>
+			<h2 class="vertical grid-view">Important</h2>
+			<h2 class="list-view">Urgent and important</h2>
 			<ul class="task-list" id="urgent-important" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">
 			</ul>
 		</div>
 		<div class="list-wrapper">
-			<h2>Not urgent</h2>
+			<h2 class="grid-view">Important</h2>
+			<h2 class="list-view">Not urgent but important</h2>
 			<ul class="test" id="not-urgent-important" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">
 			</ul>
 		</div>
 		<div class="list-wrapper">
-			<h2 class="vertical--single">Not important</h2>
+			<h2 class="vertical grid-view">Not important</h2>
+			<h2 class="list-view">Urgent but not important</h2>
 			<ul class="test" id="urgent-not-important" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">
 			</ul>
 		</div>
 		<div class="list-wrapper">
+		<h2 class="list-view">Not urgent, not important</h2>
 			<ul class="test" id="not-urgent-not-important" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">
 			</ul>
 		</div>
