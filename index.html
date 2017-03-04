@@ -13,31 +13,31 @@
 		<button onclick="addTask()" class="button--add">Add Task</button>
 	</form>
 	<div class="container">
-		<div class="list-wrapper">
-			<h2 class="grid-view">Urgent</h2>
-			<h2 class="vertical grid-view">Important</h2>
-			<h2 class="list-view">Urgent and important</h2>
-			<ul class="task-list" id="urgent-important" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">
+		<section class="list-wrapper">
+			<h2 class="heading--grid-view">Urgent</h2>
+			<h2 class="heading--vertical heading--grid-view">Important</h2>
+			<h2 class="heading--list-view">Urgent and important</h2>
+			<ul id="urgent-important" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">
 			</ul>
-		</div>
-		<div class="list-wrapper">
-			<h2 class="grid-view">Important</h2>
-			<h2 class="list-view">Not urgent but important</h2>
-			<ul class="test" id="not-urgent-important" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">
+		</section>
+		<section class="list-wrapper">
+			<h2 class="heading--grid-view">Important</h2>
+			<h2 class="heading--list-view">Not urgent but important</h2>
+			<ul id="not-urgent-important" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">
 			</ul>
-		</div>
-		<div class="list-wrapper">
-			<h2 class="vertical grid-view">Not important</h2>
-			<h2 class="list-view">Urgent but not important</h2>
-			<ul class="test" id="urgent-not-important" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">
+		</section>
+		<section class="list-wrapper">
+			<h2 class="heading--vertical heading--grid-view">Not important</h2>
+			<h2 class="heading--list-view">Urgent but not important</h2>
+			<ul id="urgent-not-important" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">
 			</ul>
-		</div>
-		<div class="list-wrapper">
-		<h2 class="list-view">Not urgent, not important</h2>
-			<ul class="test" id="not-urgent-not-important" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">
+		</section>
+		<section class="list-wrapper">
+		<h2 class="heading--list-view">Not urgent, not important</h2>
+			<ul id="not-urgent-not-important" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">
 			</ul>
-		</div>
+		</section>
 	 </div>
-	 <button class="delete-all-button" title="delete all" onclick="return deleteAll()"><i class="delete-all-button-icon fa fa-2x fa-trash"></i>Delete all</button>
+	 <button class="button--delete-all" title="delete all" onclick="return deleteAll()"><i class="button--delete-all__icon fa fa-2x fa-trash"></i>Delete all</button>
 </body>
 </html>

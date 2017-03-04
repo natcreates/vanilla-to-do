@@ -33,7 +33,7 @@ function writeTask(taskItem, listCategory) {
 	var listItem = document.createElement('li');
 	listItem.id = taskItem.id;
 
-	listItem.innerHTML = '<label for="' + taskItem.id +'"><input type="checkbox" name="' + listItem.id + '"><div class="custom-checkbox"></div>' + taskItem.info + '</label><button class="remove-button"><i class="fa fa-remove"></i></button>';
+	listItem.innerHTML = '<label for="' + taskItem.id +'"><input type="checkbox" name="' + listItem.id + '"><div class="custom-checkbox"></div>' + taskItem.info + '</label><button class="button--remove"><i class="fa fa-remove"></i></button>';
 	
 	// make each list item draggable
 	listItem.draggable = "true";
