@@ -136,7 +136,6 @@ function removeToDo(removedTask) {
 }
 
 function dragStart(event) {
-	console.log('dragStart')
 	event.dataTransfer.effectAllowed = 'move';
 	var toDos = getToDos();
 	var movedTask = event.currentTarget;
@@ -162,6 +161,7 @@ function dragDrop(event) {
 	var oldCategory = event.dataTransfer.getData('oldCategory');
 	var oldIndex = event.dataTransfer.getData('oldIndex');
 	var toDos = getToDos();
+	event.currentTarget.classList.remove("dragged-over");
 
 	// remove task object from old position
 	if (toDos[oldCategory].length  >= 1) {
@@ -174,23 +174,20 @@ function dragDrop(event) {
 
 	// find the index of the list item we're dropping onto
 	var target = toDos[droppedIndex].findIndex(function(element) {
-		console.log('element', element.id);
-		console.log('parent', event.target.parentNode.id);
-		var test;
+		var targetTest;
 
 		// check that we're getting a task id, not a category id
 		if(event.target.parentNode.id.length < 2) {
-			test = event.target.parentNode.id;
+			targetTest = event.target.parentNode.id;
 		} else {
-			test = event.target.id;
+			targetTest = event.target.id;
 		}
-		return element.id == test;
+		return element.id == targetTest;
 	});
 
-	console.log(target);
 	// insert the dropped item afterwards
 	toDos[droppedIndex].splice(target + 1, 0, droppedToDo);
-	console.log('dropped todo', droppedToDo);
+
 	// store changed tasklist and re-draw
 	localStorage.setItem("toDos", JSON.stringify(toDos));
 	writeTasks();
@@ -204,8 +201,16 @@ function dragEnter(ev) {
    ev.preventDefault();
    return true;
 }
+
+// apply styling to the list being dragged over
 function dragOver(ev) {
     ev.preventDefault();
+    ev.currentTarget.classList.add("dragged-over");
+}
+
+// remove styling
+function dragLeave(ev) {
+	ev.currentTarget.classList.remove("dragged-over");
 }
 
 // remove all

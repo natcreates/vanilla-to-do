@@ -219,6 +219,11 @@ input:checked + .custom-checkbox:after {
 	color: #a9a9a9;
 }
 
+.dragged-over {
+	border: 2px dashed #a9a9a9;
+	background: #F6FBFE;
+}
+
 @media screen and (min-width: 950px) {
 
 	.list-wrapper {
